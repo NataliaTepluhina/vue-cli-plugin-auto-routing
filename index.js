@@ -21,7 +21,17 @@ module.exports = api => {
       usage: 'vue-cli-service greet'
     },
     () => {
-      console.log(chalk.bold(chalk.blue(`👋  Hello fellow developer`)))
+      console.log(chalk.bold(chalk.blue(`👋  Hello, fellow developer!`)))
     }
   )
+
+  const { serve } = api.service.commands
+
+  const serveFn = serve.fn
+
+  serve.fn = (...args) => {
+    return serveFn(...args).then(() => {
+      console.log(chalk.bold(chalk.blue(`Project is running now`)))
+    })
+  }
 }
