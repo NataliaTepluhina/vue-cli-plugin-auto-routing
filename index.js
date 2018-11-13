@@ -1,4 +1,5 @@
 const VueAutoRoutingPlugin = require('vue-auto-routing/lib/webpack-plugin')
+const chalk = require('chalk')
 
 module.exports = api => {
   api.chainWebpack(webpackConfig => {
@@ -12,4 +13,15 @@ module.exports = api => {
           }
         ])
   })
+
+  api.registerCommand(
+    'greet',
+    {
+      description: 'Writes a greeting to the console',
+      usage: 'vue-cli-service greet'
+    },
+    () => {
+      console.log(chalk.bold(chalk.blue(`👋  Hello fellow developer`)))
+    }
+  )
 }
