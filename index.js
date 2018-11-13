@@ -30,8 +30,13 @@ module.exports = api => {
   const serveFn = serve.fn
 
   serve.fn = (...args) => {
-    return serveFn(...args).then(() => {
-      console.log(chalk.bold(chalk.blue(`Project is running now`)))
+    return serveFn(...args).then(res => {
+      if (res && res.url) {
+        console.log(
+          chalk.green(`Project is running now at`),
+          chalk.blue(res.url)
+        )
+      }
     })
   }
 }
