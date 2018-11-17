@@ -27,7 +27,7 @@ module.exports = api => {
     },
     args => {
       if (args.name) {
-        console.log(`👋 Hello, ${args.name}!`);
+        console.log(`👋 Hello,${args.name}!`);
       } else {
         console.log(`👋 Hello!`);
       }
