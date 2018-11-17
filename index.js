@@ -1,5 +1,5 @@
-const VueAutoRoutingPlugin = require('vue-auto-routing/lib/webpack-plugin')
-const chalk = require('chalk')
+const VueAutoRoutingPlugin = require('vue-auto-routing/lib/webpack-plugin');
+const chalk = require('chalk');
 
 module.exports = api => {
   api.chainWebpack(webpackConfig => {
@@ -12,22 +12,31 @@ module.exports = api => {
             nested: true
           }
         ])
-  })
+  });
+
+  const OPTIONS = {
+    '--name': 'specifies a name for greeting'
+  };
 
   api.registerCommand(
     'greet',
     {
       description: 'Writes a greeting to the console',
-      usage: 'vue-cli-service greet'
+      usage: 'vue-cli-service greet [options]',
+      options: OPTIONS
     },
-    () => {
-      console.log(chalk.bold(chalk.blue(`👋  Hello, fellow developer!`)))
+    args => {
+      if (args.name) {
+        console.log(`👋 Hello, ${args.name}!`);
+      } else {
+        console.log(`👋 Hello!`);
+      }
     }
-  )
+  );
 
-  const { serve } = api.service.commands
+  const { serve } = api.service.commands;
 
-  const serveFn = serve.fn
+  const serveFn = serve.fn;
 
   serve.fn = (...args) => {
     return serveFn(...args).then(res => {
@@ -35,8 +44,8 @@ module.exports = api => {
         console.log(
           chalk.green(`Project is running now at`),
           chalk.blue(res.url)
-        )
+        );
       }
-    })
-  }
-}
+    });
+  };
+};
