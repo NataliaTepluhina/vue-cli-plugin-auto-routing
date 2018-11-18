@@ -1,4 +1,4 @@
-module.exports = api => {
+module.exports = (api, options) => {
   api.extendPackage({
     dependencies: {
       'vue-router-layout': '^0.1.2'
@@ -11,7 +11,9 @@ module.exports = api => {
     }
   });
 
-  api.render('./template');
+  if (options.addExample) {
+    api.render('./template');
+  }
 
   if (api.invoking) {
     api.postProcessFiles(files => {
