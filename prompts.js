@@ -9,4 +9,4 @@ module.exports = [
     link:
       'https://github.com/ktsn/vue-cli-plugin-auto-routing/#vue-cli-plugin-auto-routing'
   }
-]
+];

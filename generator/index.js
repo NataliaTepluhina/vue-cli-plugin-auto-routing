@@ -11,8 +11,10 @@ module.exports = (api, options) => {
     }
   });
 
-  if (options.addExample) {
-    api.render('./template');
+  if (options.addExampleRoutes) {
+    api.render('./template', {
+      ...options
+    });
   }
 
   if (api.invoking) {
