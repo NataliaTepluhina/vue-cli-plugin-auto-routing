@@ -12,26 +12,22 @@ module.exports = (api, options) => {
     }
   });
 
-  const routerLine = `\nimport router from './router';`;
-
   api.onCreateComplete(() => {
     // inject to main.js
     const fs = require('fs');
-    const ext = api.hasPlugin('typescript') ? 'ts' : 'js';
-    const mainPath = api.resolve(`./src/main.${ext}`);
 
     // get content
-    let contentMain = fs.readFileSync(mainPath, { encoding: 'utf-8' });
-    const lines = contentMain.split(/\r?\n/g).reverse();
-
-    // inject import
-    const lastImportIndex = lines.findIndex(line => line.match(/^import/));
-    lines[lastImportIndex] += routerLine;
+    let contentMain = fs.readFileSync(api.entryFile, { encoding: 'utf-8' });
+    const lines = contentMain.split(/\r?\n/g);
+    const renderIndex = lines.findIndex(line => line.match(/render/));
+    lines[renderIndex] += `\n  router,`
 
     // modify app
-    contentMain = lines.reverse().join('\n');
-    fs.writeFileSync(mainPath, contentMain, { encoding: 'utf-8' });
+    contentMain = lines.join('\n');
+    fs.writeFileSync(api.entryFile, contentMain, { encoding: 'utf-8' });
   });
+
+  api.injectImports(api.entryFile, `import router from './router'`)
 
   if (options.addExampleRoutes) {
     api.render('./template', {
