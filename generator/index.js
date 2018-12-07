@@ -1,6 +1,7 @@
 module.exports = (api, options) => {
   api.extendPackage({
     dependencies: {
+      'vue-router': '^3.0.2',
       'vue-router-layout': '^0.1.2'
     },
     devDependencies: {
